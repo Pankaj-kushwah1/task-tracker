@@ -3,8 +3,8 @@ import jwt from "jsonwebtoken";
 const JWT_SECRET = process.env.JWT_SECRET;
 // auth.service.ts
 type RegisterInput = {
-  fullName: string;
   email: string;
+  fullName: string;
   password: string;
 };
 
@@ -39,7 +39,7 @@ export const loginUser = async ({ email, password }: LoginInput) => {
   const isMatch = await user.comparePassword(password);
   if (!isMatch) throw new Error("Invalid credentials");
 
-  const token = jwt.sign({ id: user._id }, JWT_SECRET as string);
+  const token = jwt.sign({ _id: user._id }, JWT_SECRET as string);
 
   const userObj = user.toObject();
   delete userObj.password;
