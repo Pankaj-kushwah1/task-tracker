@@ -1,4 +1,4 @@
-import redis from "../config/redis";
+import redis from "../../config/redis.js";
 
 const DEFAULT_EXPIRY = 60 * 5; // 5 minutes
 

@@ -1,29 +1,21 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
-const taskSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  isCompleted: {
-    type: Boolean,
-    default: false,
-  },
-  dueDate: {
-    type: Date,
-    required: true,
-  },
-  user: {
-    type: mongoose.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
+export interface ITask extends Document {
+  title: string;
+  description: string;
+  isCompleted: boolean;
+  dueDate: Date;
+  user: mongoose.Types.ObjectId;
+}
+
+const taskSchema = new Schema<ITask>({
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  isCompleted: { type: Boolean, default: false },
+  dueDate: { type: Date, required: true },
+  user: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
 
-const TaskModel = mongoose.model("Task", taskSchema);
+const TaskModel = mongoose.model<ITask>("Task", taskSchema);
 
 export default TaskModel;
